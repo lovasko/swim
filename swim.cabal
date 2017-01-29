@@ -1,5 +1,5 @@
 name:                swim
-version:             0.1.0.0
+version:             1.0.0
 synopsis:            Time Series Database Combinators
 description:         Swim is a set of command-line tools providing various
                      building blocks for larger custom time series database
