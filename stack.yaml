@@ -2,8 +2,9 @@ resolver: lts-7.13
 packages:
 - '.'
 extra-deps:
-- tabl-0.1.0.0
-- goat-0.1.0.0
-- stat-0.1.0.0
+- tabl-1.0.3
+- goat-1.0.0
+- staf-1.0.0
+- floating-bits-0.3.0.0
 flags: {}
 extra-package-dbs: []
