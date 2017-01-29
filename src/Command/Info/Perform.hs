@@ -4,15 +4,17 @@ module Command.Info.Perform
 ( perform
 ) where
 
+import Data.Maybe
 import Data.Monoid
 import Data.Word
 import System.Exit
 import Text.Tabl
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
+import qualified Stats.Foldable as S
 
-import Command.Info.Options
 import Load
+import Command.Info.Options
 import Story
 import Util
 
@@ -21,17 +23,19 @@ import Util
 valueStats :: [Float]    -- ^ values
            -> [[T.Text]] -- ^ table rows
 valueStats [] = []
-valueStats xs = [ ["Min:", (textShow . minimum) xs]
-                , ["Max:", (textShow . maximum) xs] ]
+valueStats xs = [ ["Minimum", (textShow . fromJust . S.min)    xs]
+                , ["Maximum", (textShow . fromJust . S.max)    xs]
+                , ["Average", (textShow . fromJust . S.amean)  xs]
+                , ["StdDev",  (textShow . fromJust . S.stddev) xs] ]
 
 -- | Compute statistics on top of data point times.
 timeStats :: InfoOptions
           -> [Word32]
           -> [[T.Text]]
 timeStats _       []    = []
-timeStats options times = [ ["Begin:", timeBegin]
-                          , ["End:",   timeEnd]
-                          , ["Size:",  entryCount] ]
+timeStats options times = [ ["Begin", timeBegin]
+                          , ["End",   timeEnd]
+                          , ["Size",  entryCount] ]
   where
     timeBegin  = showTime (infoOptTimestamp options) (head times)
     timeEnd    = showTime (infoOptTimestamp options) (last times)
