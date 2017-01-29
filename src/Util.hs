@@ -36,5 +36,5 @@ showTime :: Bool   -- ^ timestamp expansion
          -> Word32 -- ^ timestamp
          -> T.Text -- ^ textual representation
 showTime True  ts = textShow ts
-showTime False ts = T.pack (formatTime defaultTimeLocale "%F %T" ts')
+showTime False ts = T.pack (formatTime defaultTimeLocale "%Y-%b-%d %T" ts')
   where ts' = posixSecondsToUTCTime (fromIntegral ts + 946684800)
