@@ -23,6 +23,17 @@ createEntry :: Bool            -- ^ pretty-print time
             -> [T.Text]        -- ^ table entry
 createEntry form (time, value) = [showTime form time, T.pack (show value)]
 
+-- | Select a subset of the story based on the count command-line argument.
+-- If no count was selected, the whole story is returned.
+selectEntries :: [a]       -- ^ entries
+              -> Maybe Int -- ^ count
+              -> [a]       -- ^ entries subset
+selectEntries xs Nothing   = xs
+selectEntries xs (Just count)
+  | abs count >= length xs = xs
+  | count >= 0             = take count xs
+  | otherwise              = drop (length xs + count) xs
+
 -- | Create the final table layout.
 createTable :: ShowOptions -- ^ command-line options
             -> Story       -- ^ story
@@ -32,7 +43,7 @@ createTable options story = tabl EnvAscii hdecor vdecor aligns cells
     hdecor  = DecorUnion [DecorOuter, DecorOnly [1]]
     vdecor  = DecorAll
     aligns  = [AlignLeft, AlignRight]
-    cells   = ["Time", "Value"] : (take (showOptCount options) entries)
+    cells   = ["Time", "Value"] : selectEntries entries (Just (showOptCount options))
     entries = map (createEntry (showOptTimestamp options)) story
 
 -- | Pretty-print the content of a story file.
