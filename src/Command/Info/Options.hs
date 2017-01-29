@@ -11,6 +11,7 @@ data InfoOptions = InfoOptions
   { infoOptStats     :: Bool
   , infoOptTimestamp :: Bool
   , infoOptFile      :: FilePath }
+  deriving (Show)
 
 -- | Switch to trigger a computation of value statistics.
 optionStats :: Parser Bool -- ^ parser
