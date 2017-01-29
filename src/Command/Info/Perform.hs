@@ -51,7 +51,7 @@ createTable options story = tabl EnvAscii hdecor vdecor aligns cells
     hdecor = DecorAll
     vdecor = DecorAll
     aligns = repeat AlignRight
-    cells  = times ++ bool values [] (infoOptStats options)
+    cells  = times ++ values
     times  = timeStats options (map fst story)
     values = valueStats (map snd story)
 

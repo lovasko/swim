@@ -8,17 +8,9 @@ import Options.Applicative
 
 -- | Options of the "info" command.
 data InfoOptions = InfoOptions
-  { infoOptStats     :: Bool
-  , infoOptTimestamp :: Bool
+  { infoOptTimestamp :: Bool
   , infoOptFile      :: FilePath }
   deriving (Show)
-
--- | Switch to trigger a computation of value statistics.
-optionStats :: Parser Bool -- ^ parser
-optionStats = switch
-   $ short 's'
-  <> long  "stats"
-  <> help  "Compute statistics of data point values"
 
 -- | Switch to trigger timestamps instead of formatted dates.
 optionTimestamp :: Parser Bool -- ^ parser
@@ -33,4 +25,4 @@ optionFile = argument str (metavar "FILE")
 
 -- | Command-line user interface.
 infoOptDefine :: Parser InfoOptions -- ^ parser
-infoOptDefine = InfoOptions <$> optionStats <*> optionTimestamp <*> optionFile
+infoOptDefine = InfoOptions <$> optionTimestamp <*> optionFile
