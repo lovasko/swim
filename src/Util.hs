@@ -1,5 +1,6 @@
 module Util
-( eitherFirst
+( bool
+, eitherFirst
 , showTime
 , textShow
 ) where
