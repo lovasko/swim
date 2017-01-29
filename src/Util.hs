@@ -37,4 +37,4 @@ showTime :: Bool   -- ^ timestamp expansion
          -> T.Text -- ^ textual representation
 showTime True  ts = textShow ts
 showTime False ts = T.pack (formatTime defaultTimeLocale "%F %T" ts')
-  where ts' = posixSecondsToUTCTime (fromIntegral ts)
+  where ts' = posixSecondsToUTCTime (fromIntegral ts + 946684800)
