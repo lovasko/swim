@@ -2,13 +2,12 @@ module Load
 ( storyLoad
 ) where
 
+import Codec.Goat hiding (Story)
 import Control.Applicative
 import qualified Data.ByteString as B
 import qualified Data.Serialize as S
 import qualified Data.Text as T
 
-import GoatSwim.TimeFrame
-import GoatSwim.ValueFrame
 import Format
 import Story
 import Util
