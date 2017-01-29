@@ -1,8 +1,8 @@
--- | Main.
 import Options.Applicative
-
 import Options
 
--- | GoatSwim Time Series Database Combinators.
+
 main :: IO ()
-main = execParser
+main = do
+  opts <- execParser Options.parser
+  perform (optCommand opts)
