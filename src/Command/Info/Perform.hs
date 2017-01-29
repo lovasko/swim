@@ -13,8 +13,8 @@ import qualified Data.Text as T
 import qualified Data.Text.IO as T
 import qualified Stats.Foldable as S
 
-import Load
 import Command.Info.Options
+import Load
 import Story
 import Util
 
@@ -48,8 +48,8 @@ createTable :: InfoOptions
 createTable _       []    = T.empty
 createTable options story = tabl EnvAscii hdecor vdecor aligns cells
   where
-    hdecor = DecorNone
-    vdecor = DecorNone
+    hdecor = DecorAll
+    vdecor = DecorAll
     aligns = repeat AlignRight
     cells  = times ++ bool values [] (infoOptStats options)
     times  = timeStats options (map fst story)
