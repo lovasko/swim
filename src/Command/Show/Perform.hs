@@ -5,12 +5,13 @@ module Command.Show.Perform
 ) where
 
 import Data.Monoid
-import Data.Time.Format
+import Data.Word
 import System.Exit
 import Text.Tabl
 import qualified Data.Text as T
 import qualified Data.Text.IO as T
 
+import Command.Show.Options
 import Load
 import Story
 import Util
@@ -37,8 +38,8 @@ createTable options story = tabl EnvAscii hdecor vdecor aligns cells
 -- | Pretty-print the content of a story file.
 perform :: ShowOptions -- ^ options
         -> IO ()       -- ^ command action
-perform options story = do
-  result <- storyLoad (showOptFile options)
+perform opts = do
+  result <- storyLoad (showOptFile opts)
   case result of
-    Left  err   -> T.putStrLn ("ERROR: " <> err)          >> exitFailure
-    Right story -> T.putStrLn (createTable story options) >> exitSuccess
+    Left  err   -> T.putStrLn ("ERROR: " <> err)       >> exitFailure
+    Right story -> T.putStrLn (createTable opts story) >> exitSuccess

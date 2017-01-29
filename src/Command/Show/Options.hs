@@ -11,6 +11,7 @@ data ShowOptions = ShowOptions
   { showOptCount     :: Int
   , showOptTimestamp :: Bool
   , showOptFile      :: FilePath }
+  deriving (Show)
 
 -- | Resulting table entry count.
 optionCount :: Parser Int -- ^ parser
