@@ -8,14 +8,14 @@ import Options.Applicative
 
 -- | Options of the "show" command.
 data ShowOptions = ShowOptions
-  { showOptCount     :: Int
+  { showOptCount     :: Maybe Int
   , showOptTimestamp :: Bool
   , showOptFile      :: FilePath }
   deriving (Show)
 
 -- | Resulting table entry count.
-optionCount :: Parser Int -- ^ parser
-optionCount = option auto
+optionCount :: Parser (Maybe Int) -- ^ parser
+optionCount = optional $ option auto
    $ short   'c'
   <> long    "count"
   <> metavar "COUNT"

@@ -43,7 +43,7 @@ createTable options story = tabl EnvAscii hdecor vdecor aligns cells
     hdecor  = DecorUnion [DecorOuter, DecorOnly [1]]
     vdecor  = DecorAll
     aligns  = [AlignLeft, AlignRight]
-    cells   = ["Time", "Value"] : selectEntries entries (Just (showOptCount options))
+    cells   = ["Time", "Value"] : selectEntries entries (showOptCount options)
     entries = map (createEntry (showOptTimestamp options)) story
 
 -- | Pretty-print the content of a story file.
