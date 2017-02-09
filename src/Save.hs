@@ -4,14 +4,12 @@ module Save
 ( storySave
 ) where
 
-import Control.Monad
+import Codec.Goat hiding (Story)
 import Data.Monoid
 import qualified Data.ByteString as B
 import qualified Data.Serialize as S
 import qualified Data.Text.IO as T
 
-import GoatSwim.TimeFrame
-import GoatSwim.ValueFrame
 import Format
 import Story
 
