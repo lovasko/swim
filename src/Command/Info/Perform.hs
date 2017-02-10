@@ -61,7 +61,8 @@ valueStats xs =
   [ ["Minimum", (textShow . fromJust . S.min)    xs]
   , ["Maximum", (textShow . fromJust . S.max)    xs]
   , ["Average", (textShow . fromJust . S.amean)  xs]
-  , ["StdDev",  (textShow . fromJust . S.stddev) xs] ]
+  , ["StdDev",  (textShow . fromJust . S.stddev) xs]
+  , ["#Unique", (textShow . length   . nub)      xs] ]
 
 -- | Compute statistics on top of data point times.
 timeStats :: InfoOptions
