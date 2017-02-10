@@ -8,9 +8,11 @@ module Format
 import qualified Data.Text as T
 import qualified System.FilePath as F
 
--- | GoatSwim files come in two formats: raw and compressed.
-data Format = FmtZip -- ^ compressed content
-            | FmtRaw -- ^ uncompressed content
+
+-- | Swim files come in two formats: raw and compressed.
+data Format
+  = FmtZip -- ^ compressed content
+  | FmtRaw -- ^ uncompressed content
 
 -- | Deduce the format of a file based on its file extension.
 fmtIdentify :: FilePath             -- ^ file name
