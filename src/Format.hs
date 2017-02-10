@@ -2,6 +2,7 @@
 
 module Format
 ( Format(..)
+, fmtChange
 , fmtIdentify
 ) where
 
@@ -22,3 +23,10 @@ fmtIdentify path
   | ext == ".gsz" = Right FmtZip
   | otherwise     = Left "unrecognized file extension"
   where ext = F.takeExtension path
+
+-- | Apply a different file extension based on the format.
+fmtChange :: Format   -- ^ format
+          -> FilePath -- ^ old file name
+          -> FilePath -- ^ new file name
+fmtChange FmtRaw = flip F.replaceExtension ".gs"
+fmtChange FmtZip = flip F.replaceExtension ".gsz"
