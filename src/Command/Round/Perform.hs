@@ -59,7 +59,7 @@ options = RoundOptions <$> optFile <*> optRoundMode
 -- | Perform the floating-point rounding operation.
 applyMode :: RoundMode -- ^ rounding mode
           -> Float     -- ^ old number
-          -> Int       -- ^ new number
+          -> Integer   -- ^ new number
 applyMode RoundFair    = round
 applyMode RoundFloor   = floor
 applyMode RoundCeiling = ceiling
