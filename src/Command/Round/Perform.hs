@@ -1,3 +1,4 @@
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Command.Round.Perform
@@ -67,17 +68,9 @@ applyMode RoundCeiling = ceiling
 -- | Peform story compression on a selected file.
 perform :: RoundOptions -- ^ round options
         -> IO ()        -- ^ command action
---perform opts = case storyLoad file of
---  Left  err   -> T.putStrLn ("ERROR: " <> err) >> exitFailure
---  Right story -> storySave (change story) file       >> exitSuccess
---  where
---    file   = roundFile opts
---    mode   = roundMode opts
---    change = apValues (map (applyMode mode))
-
-perform opts = storyLoad file >>= (\content -> case content of
+perform opts = storyLoad file >>= \case
   Left  err   -> T.putStrLn ("ERROR: " <> err) >> exitFailure
-  Right story -> storySave (change story) file >> exitSuccess)
+  Right story -> storySave (change story) file >> exitSuccess
   where
     file   = roundFile opts
     mode   = roundMode opts
