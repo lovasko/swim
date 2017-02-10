@@ -32,8 +32,7 @@ saveZip story = S.runPut (S.put times >> S.put values)
 storySave :: Story    -- ^ story
           -> FilePath -- ^ file path
           -> IO ()    -- ^ action
-storySave story path =
-  case fmtIdentify path of
-    Left  err    -> T.putStrLn ("ERROR:" <> err)
-    Right FmtRaw -> B.writeFile path (saveRaw story)
-    Right FmtZip -> B.writeFile path (saveZip story)
+storySave story path = case fmtIdentify path of
+  Left  err    -> T.putStrLn ("ERROR:" <> err)
+  Right FmtRaw -> B.writeFile path (saveRaw story)
+  Right FmtZip -> B.writeFile path (saveZip story)
