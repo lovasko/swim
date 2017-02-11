@@ -3,6 +3,7 @@ packages:
 - '.'
 extra-deps:
 - tabl-1.0.3
+- comma-1.1.0
 - goat-1.0.0
 - staf-1.0.0
 - floating-bits-0.3.0.0
