@@ -11,6 +11,7 @@ import qualified Command.Info.Options as CInfo
 import qualified Command.Info.Perform as CInfo
 import qualified Command.Round.Perform as CRound
 import qualified Command.Compress.Perform as CCompress
+import qualified Command.Decompress.Perform as CDecompress
 
 
 -- | Command-line subcommands.
@@ -19,6 +20,7 @@ data Command
   | CmdInfo  CInfo.InfoOptions
   | CmdRound CRound.RoundOptions
   | CmdCompress CCompress.CompressOptions
+  | CmdDecompress CDecompress.DecompressOptions
   deriving (Show)
 
 -- | Command-line options.
@@ -32,7 +34,7 @@ commands = subparser
  <> command "info" (info (fmap CmdInfo CInfo.infoOptDefine) fullDesc)
  <> command "round" (info (fmap CmdRound CRound.options) fullDesc)
  <> command "compress" (info (fmap CmdCompress CCompress.options) fullDesc)
--- <> command "decompress"
+ <> command "decompress" (info (fmap CmdDecompress CDecompress.options) fullDesc)
 -- <> command "check"
 -- <> command "shift"
 -- <> command "correlate"
@@ -57,3 +59,4 @@ perform (CmdShow opt) = CShow.perform opt
 perform (CmdInfo opt) = CInfo.perform opt
 perform (CmdRound opt) = CRound.perform opt
 perform (CmdCompress opt) = CCompress.perform opt
+perform (CmdDecompress opt) = CDecompress.perform opt
