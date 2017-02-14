@@ -68,9 +68,9 @@ valueStats xs =
     high  = (textShow . fromJust . S.max) xs
 
 -- | Compute statistics on top of data point times.
-timeStats :: InfoOptions
-          -> [Word32]
-          -> [[T.Text]]
+timeStats :: InfoOptions -- ^ command-line options
+          -> [Word32]    -- ^ time points
+          -> [[T.Text]]  -- ^ table rows
 timeStats _       []    = []
 timeStats options times =
   [ ["Begin",     timeBegin]
@@ -83,9 +83,9 @@ timeStats options times =
     entryCount = (textShow . length) times
 
 -- | Create table rows with information about the data points.
-createTable :: InfoOptions
-            -> Story
-            -> T.Text
+createTable :: InfoOptions -- ^ command-line options
+            -> Story       -- ^ story
+            -> T.Text      -- ^ table
 createTable _       []    = T.empty
 createTable options story = tabl EnvAscii hdecor vdecor aligns cells
   where
