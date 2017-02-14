@@ -58,11 +58,14 @@ valueStats :: [Float]    -- ^ values
            -> [[T.Text]] -- ^ table rows
 valueStats [] = []
 valueStats xs =
-  [ ["Minimum", (textShow . fromJust . S.min)    xs]
-  , ["Maximum", (textShow . fromJust . S.max)    xs]
+  [ ["Range",   range]
   , ["Average", (textShow . fromJust . S.amean)  xs]
   , ["StdDev",  (textShow . fromJust . S.stddev) xs]
   , ["#Unique", (textShow . length   . nub)      xs] ]
+  where
+    range = T.unwords [low, "~~", high]
+    low   = (textShow . fromJust . S.min) xs
+    high  = (textShow . fromJust . S.max) xs
 
 -- | Compute statistics on top of data point times.
 timeStats :: InfoOptions
