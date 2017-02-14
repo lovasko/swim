@@ -4,7 +4,6 @@ module Format
 , fmtIdentify
 ) where
 
-import qualified Data.Text as T
 import qualified System.FilePath as F
 
 
