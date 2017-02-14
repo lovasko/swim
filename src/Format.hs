@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Format
 ( Format(..)
 , fmtChange
@@ -17,7 +15,7 @@ data Format
 
 -- | Deduce the format of a file based on its file extension.
 fmtIdentify :: FilePath             -- ^ file name
-            -> Either T.Text Format -- ^ error | format
+            -> Either String Format -- ^ error | format
 fmtIdentify path
   | ext == ".gs"  = Right FmtRaw
   | ext == ".gsz" = Right FmtZip

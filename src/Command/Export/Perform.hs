@@ -63,7 +63,7 @@ table opts story = uncomma $ bool rows (headers:rows) (exportNoHeader opts)
 perform :: ExportOptions -- ^ options
         -> IO ()         -- ^ command action
 perform opts = storyLoad file >>= \case
-  Left  err   -> T.putStrLn ("ERROR: " <> err)          >> exitFailure
+  Left  msg   -> errorPrint msg                         >> exitFailure
   Right story -> T.writeFile newName (table opts story) >> exitSuccess
   where
     file    = exportFile opts

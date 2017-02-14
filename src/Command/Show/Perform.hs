@@ -1,10 +1,10 @@
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Command.Show.Perform
 ( perform
 ) where
 
-import Data.Monoid
 import Data.Word
 import System.Exit
 import Text.Tabl
@@ -49,8 +49,6 @@ createTable options story = tabl EnvAscii hdecor vdecor aligns cells
 -- | Pretty-print the content of a story file.
 perform :: ShowOptions -- ^ options
         -> IO ()       -- ^ command action
-perform opts = do
-  result <- storyLoad (showOptFile opts)
-  case result of
-    Left  err   -> T.putStrLn ("ERROR: " <> err)       >> exitFailure
-    Right story -> T.putStrLn (createTable opts story) >> exitSuccess
+perform opts = storyLoad (showOptFile opts) >>= \case
+  Left  err   -> errorPrint err                      >> exitFailure
+  Right story -> T.putStrLn (createTable opts story) >> exitSuccess

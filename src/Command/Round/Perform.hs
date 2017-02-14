@@ -10,11 +10,11 @@ module Command.Round.Perform
 import Data.Monoid
 import Options.Applicative
 import System.Exit
-import qualified Data.Text.IO as T
 
 import Load
 import Save
 import Story
+import Util
 
 
 -- | Floating-point rounding mode.
@@ -69,7 +69,7 @@ applyMode RoundCeiling = ceiling
 perform :: RoundOptions -- ^ round options
         -> IO ()        -- ^ command action
 perform opts = storyLoad file >>= \case
-  Left  err   -> T.putStrLn ("ERROR: " <> err) >> exitFailure
+  Left  err   -> errorPrint err                >> exitFailure
   Right story -> storySave (change story) file >> exitSuccess
   where
     file   = roundFile opts

@@ -1,3 +1,4 @@
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Command.Info.Perform
@@ -7,7 +8,6 @@ module Command.Info.Perform
 import Data.Function
 import Data.List
 import Data.Maybe
-import Data.Monoid
 import Data.Word
 import System.Exit
 import Text.Tabl
@@ -96,8 +96,6 @@ createTable options story = tabl EnvAscii hdecor vdecor aligns cells
 -- | Print information about the data points stored in a file.
 perform :: InfoOptions -- ^ command-line options
         -> IO ()       -- ^ action
-perform opts = do
-  result <- storyLoad (infoOptFile opts)
-  case result of
-    Left  err   -> T.putStrLn ("ERROR: " <> err)       >> exitFailure
-    Right story -> T.putStrLn (createTable opts story) >> exitSuccess
+perform opts = storyLoad (infoOptFile opts) >>= \case
+  Left  err   -> errorPrint err                      >> exitFailure
+  Right story -> T.putStrLn (createTable opts story) >> exitSuccess

@@ -5,13 +5,12 @@ module Save
 ) where
 
 import Codec.Goat hiding (Story)
-import Data.Monoid
 import qualified Data.ByteString as B
 import qualified Data.Serialize as S
-import qualified Data.Text.IO as T
 
 import Format
 import Story
+import Util
 
 
 -- | Save a story into a file in the uncompressed format.
@@ -33,6 +32,6 @@ storySave :: Story    -- ^ story
           -> FilePath -- ^ file path
           -> IO ()    -- ^ action
 storySave story path = case fmtIdentify path of
-  Left  err    -> T.putStrLn ("ERROR:" <> err)
+  Left  err    -> errorPrint err
   Right FmtRaw -> B.writeFile path (saveRaw story)
   Right FmtZip -> B.writeFile path (saveZip story)

@@ -1,21 +1,22 @@
 module Util
 ( bool
-, eitherFirst
+, errorPrint
 , showTime
 , textShow
 ) where
 
-import Data.Word
-import Data.Time.Format
+import Data.Monoid
 import Data.Time.Clock.POSIX
+import Data.Time.Format
+import Data.Word
 import qualified Data.Text as T
+import qualified Data.Text.IO as T
 
--- | Apply function to the Left constructor of an Either.
-eitherFirst :: (a -> x)   -- ^ function
-            -> Either a b -- ^ old either
-            -> Either x b -- ^ new either
-eitherFirst f (Left a)  = Left (f a)
-eitherFirst _ (Right b) = Right b
+
+-- | Print an error message.
+errorPrint :: String -- ^ error message
+           -> IO ()  -- ^ print action
+errorPrint err = T.putStrLn (T.pack "ERROR: " <> T.pack err)
 
 -- | Convert any Showable type into a Text instance.
 textShow :: (Show a)

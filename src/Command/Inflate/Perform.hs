@@ -7,14 +7,13 @@ module Command.Inflate.Perform
 , options
 ) where
 
-import Data.Monoid
 import Options.Applicative
 import System.Exit
-import qualified Data.Text.IO as T
 
+import Format
 import Load
 import Save
-import Format
+import Util
 
 
 -- | Command-line arguments.
@@ -33,14 +32,14 @@ options = InflateOptions <$> optFile
 inflate :: FilePath -- ^ file path
         -> IO ()    -- ^ action
 inflate path = storyLoad path >>= \case
-  Left  err   -> T.putStrLn ("ERROR: " <> err)           >> exitFailure
+  Left  err   -> errorPrint err                          >> exitFailure
   Right story -> storySave story (fmtChange FmtRaw path) >> exitSuccess
 
 -- | Perform story inflation on a selected file.
 perform :: InflateOptions -- ^ inflate options
         -> IO ()          -- ^ command action
 perform opts = case fmtIdentify path of
-  Left err     -> T.putStrLn ("ERROR: " <> err)        >> exitFailure
-  Right FmtRaw -> T.putStrLn "ERROR: Already inflated" >> exitFailure
+  Left  err    -> errorPrint err                >> exitFailure
+  Right FmtRaw -> errorPrint "Already inflated" >> exitFailure
   Right FmtZip -> inflate path
   where path = inflateFile opts

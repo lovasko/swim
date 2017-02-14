@@ -7,14 +7,13 @@ module Command.Deflate.Perform
 , options
 ) where
 
-import Data.Monoid
 import Options.Applicative
 import System.Exit
-import qualified Data.Text.IO as T
 
+import Format
 import Load
 import Save
-import Format
+import Util
 
 
 -- | Command-line arguments.
@@ -33,14 +32,14 @@ options = DeflateOptions <$> optFile
 deflate :: FilePath -- ^ file path
          -> IO ()    -- ^ action
 deflate path = storyLoad path >>= \case
-  Left  err   -> T.putStrLn ("ERROR: " <> err)           >> exitFailure
+  Left  err   -> errorPrint err                          >> exitFailure
   Right story -> storySave story (fmtChange FmtZip path) >> exitSuccess
 
 -- | Perform story deflation on a selected file.
 perform :: DeflateOptions -- ^ deflate options
         -> IO ()          -- ^ command action
 perform opts = case fmtIdentify path of
-  Left err     -> T.putStrLn ("ERROR: " <> err)        >> exitFailure
-  Right FmtZip -> T.putStrLn "ERROR: Already deflated" >> exitFailure
+  Left  err    -> errorPrint err                >> exitFailure
+  Right FmtZip -> errorPrint "Already deflated" >> exitFailure
   Right FmtRaw -> deflate path
   where path = deflateFile opts
